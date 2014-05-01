@@ -1,11 +1,38 @@
 // bower:scss
 // endbower
 
+
+@font-face {
+  font-family: 'entypo';
+  src: url('/styles/fonts/entypo.eot');
+  src: url('/styles/fonts/entypo.eot?#iefix') format('embedded-opentype'),
+       url('/styles/fonts/entypo.woff') format('woff'),
+       url('/styles/fonts/entypo.ttf') format('truetype'),
+       url('/styles/fonts/entypo.svg#entypo') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.entypo {
+  font-family: 'entypo';
+  width: 20px;
+  font-size: 2.5em;
+  float: left;
+  margin: -8px 4px 0px 0px;
+}
+
+
+
+@media (min-width: 768px) {
+  .entypo {
+    margin: -23px 4px 0px 0px;
+  }
+}
+
 /*
 * Colors
 */
 $darkgray: #39393D;
-
 $topbar-bg-color: #3D4A5D;
 $sidebar-bg-color: #EDF0F1;
 $sidebar-color: #626B7A;
@@ -16,10 +43,10 @@ $sidebar-color: #626B7A;
 
 
 .browsehappy {
-	margin: 0.2em 0;
-	background: #ccc;
-	color: #000;
-	padding: 0.2em 0;
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
 }
 
 /*
@@ -30,41 +57,41 @@ $sidebar-color: #626B7A;
 * Some mixins
 */
 @mixin active-link {
-	content: "";
-	top: 0;
-	bottom: 0;
-	width: 4px;
-	left: 0;
-	right: auto;
-	background-color: #1A7AB9;
-	position: absolute;
+  content: "";
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  left: 0;
+  right: auto;
+  background-color: #1A7AB9;
+  position: absolute;
 }
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
-	padding-top: 50px;
-	// font-family: 'Source Sans Pro', 'Open Sans';
-	font-family: 'Open Sans';
-	font-size: 13px;
-	background-color: #f5f5f5;
+  padding-top: 50px;
+  // font-family: 'Source Sans Pro', 'Open Sans';
+  font-family: 'Open Sans';
+  font-size: 13px;
+  background-color: #f5f5f5;
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Open Sans';
-	font-size: 28px;
-	letter-spacing: -1px;
+  font-family: 'Open Sans';
+  font-size: 28px;
+  letter-spacing: -1px;
 }
 
 /* Bootstrap overrides */
 .container {
-	padding: 0;
+  padding: 0;
 }
 
 @media (min-width: 768px) {
-	.container {
-		padding-right: 15px;
-		padding-left: 15px;
-	}
+  .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
 }
 
 /*
@@ -72,8 +99,8 @@ h1, h2, h3, h4, h5, h6 {
  */
 
 .sub-header {
-	padding-bottom: 10px;
-	border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
 }
 
 
@@ -83,94 +110,90 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Hide for mobile, show later */
 .sidebar {
-	display: none;
+  display: none;
 }
 @media (min-width: 768px) {
-	.sidebar {
-		position: fixed;
-		top: 51px;
-		bottom: 0;
-		left: 0;
-		z-index: 1000;
-		display: block;
-		padding: 4px 20px;
-		overflow-x: hidden;
-		overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-		background-color: $sidebar-bg-color;
-		border-right: 1px solid #DFE4E6;
-	}
+  .sidebar {
+    position: fixed;
+    top: 46px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 4px 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: $sidebar-bg-color;
+    border-right: 1px solid #DFE4E6;
+  }
 }
 
 /* Sidebar navigation */
 .nav-sidebar {
-	margin-right: -21px; /* 20px padding + 1px border */
-	margin-bottom: 20px;
-	margin-left: -20px;
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
 }
 .nav-sidebar > li > a {
-	padding-right: 20px;
-	padding-left: 20px;
-	color: $sidebar-color;
-	//border-bottom: 1px solid #DFE4e6;
-	&:hover {
-		background-color: #EDF0F1;
-		color: #000;
-		&:after {
-			@include active-link;
-		}
-	}
+  padding-right: 20px;
+  padding-left: 20px;
+  color: $sidebar-color;
+  &:hover {
+    background-color: $darkgray;
+    color: #fff;
+  }
 }
 .nav-sidebar > .active > a {
-	color: #000;
-	background-color: #FAFAFA;
-	position: relative;
-	&:after {
-		@include active-link;
-	}
+  color: #000;
+  background-color: #FAFAFA;
+  position: relative;
+  &:after {
+    @include active-link;
+  }
 }
 
 
 /* Top Navbar */
 .navbar-fixed-top {
-	border-width: 0px;
+  border-width: 0px;
 }
 .navbar-inverse {
-	background-color: $topbar-bg-color;
-	color: #fff;
-	.navbar-brand {
-		color: #ECECEC;
-		text-transform: uppercase;
-		font-size:14px;
-	}
-	.navbar-nav > li {
-		&:hover {
-			background-color: #EDF0F1;
-			color: #000;
-			a {
-				color: #000;
-			}
-		}
-		> a {
-			color: #ECECEC;
-		}
-	}
+  background-color: $topbar-bg-color;
+  color: #fff;
+  .navbar-brand {
+    color: #ECECEC;
+    text-transform: uppercase;
+    font-size:14px;
+  }
+  .navbar-nav > li {
+    &:hover {
+      background-color: $sidebar-bg-color;
+      color: #000;
+      a {
+        color: #000;
+      }
+    }
+    > a {
+      color: #ECECEC;
+    }
+  }
 }
 .navbar-nav {
-	margin: 0px -15px 7px -15px;
+  margin: 0px -15px 7px -15px;
 }
 
 .navbar-inverse .navbar-nav > .active > a, 
 .navbar-inverse .navbar-nav > .active > a:hover, 
 .navbar-inverse .navbar-nav > .active > a:focus {
-	background-color: #EDF0F1;
-	color: #000;
+  background-color: $sidebar-bg-color;
+  color: #000;
 }
 
 /* Show top navbar only for mobile */ 
 @media (min-width: 768px) {
-	.navbar-nav {
-		display:none;
-	}
+  .navbar-nav {
+    display:none;
+  }
 }
 
 /*
@@ -178,16 +201,16 @@ h1, h2, h3, h4, h5, h6 {
  */
 
 .main {
-	padding: 20px;
+  padding: 20px;
 }
 @media (min-width: 768px) {
-	.main {
-		// padding-right: 40px;
-		// padding-left: 40px;
-	}
+  .main {
+    // padding-right: 40px;
+    // padding-left: 40px;
+  }
 }
 .main .page-header {
-	margin-top: 0;
+  margin-top: 0;
 }
 
 
@@ -196,21 +219,21 @@ h1, h2, h3, h4, h5, h6 {
  */
 
 .axis path, .axis line {
-	fill: none;
-	stroke: #c0c0c0;
-	shape-rendering: crispEdges;
+  fill: none;
+  stroke: #c0c0c0;
+  shape-rendering: crispEdges;
 }
 
 .axis text {
-	fill: #777;
-	font-size: 12px;
-	shape-rendering: crispEdges;
+  fill: #777;
+  font-size: 12px;
+  shape-rendering: crispEdges;
 }
 
 
 .chart {
-	height: 400px;
-	width: 100%;
+  height: 400px;
+  width: 100%;
 }
 
 
@@ -218,42 +241,42 @@ h1, h2, h3, h4, h5, h6 {
  * Custom panels
  */
 .panel {
-	margin-bottom: 20px;
-	border: 1px solid #e2e2e2;
-	width: 100%;
+  margin-bottom: 20px;
+  border: 1px solid #e2e2e2;
+  width: 100%;
 }
 
 .panel-heading {
-	background: $darkgray;
-	color: #fff;
-	border-bottom: 1px solid #ECECEC;
-	padding-bottom: 9px;
-	padding-left: 20px;
-	padding-right: 20px;
-	padding-top: 11px;
-	position: relative;
+  background: $darkgray;
+  color: #fff;
+  border-bottom: 1px solid #ECECEC;
+  padding-bottom: 9px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 11px;
+  position: relative;
 
-	.btn {
-		margin-top: -7px;
-	}
+  .btn {
+    margin-top: -7px;
+  }
 }
 
 .panel-body {
-	background: #fff;
-	margin: 0;
-	padding: 20px;
+  background: #fff;
+  margin: 0;
+  padding: 20px;
 }
 
 .custom-tooltip {
-	visibility: hidden;
-	background-color: #39393d;
-	height: 30px;
+  visibility: hidden;
+  background-color: #39393d;
+  height: 30px;
 }
 
 .custom-tooltip text {
-	fill: #fff;
-	font-size: 12px;
-	shape-rendering: crispEdges;
+  fill: #fff;
+  font-size: 12px;
+  shape-rendering: crispEdges;
 }
 
 
@@ -261,15 +284,15 @@ h1, h2, h3, h4, h5, h6 {
 * Useful chart styles for axis
 */
 .axis path, .axis line {
-	fill: none;
-	stroke: #c0c0c0;
-	shape-rendering: crispEdges;
+  fill: none;
+  stroke: #c0c0c0;
+  shape-rendering: crispEdges;
 }
 
 .axis text {
-	fill: #777;
-	font-size: 12px;
-	shape-rendering: crispEdges;
+  fill: #777;
+  font-size: 12px;
+  shape-rendering: crispEdges;
 }
 
 /*
@@ -287,34 +310,34 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .linechart-tooltip > .inner-circle {
-	fill: #3D4A5D;
+  fill: #3D4A5D;
 }
 
 .linechart-tooltip > .outer-circle {
-	/*fill: 'none';*/
-	fill: #7cb5ec;
-	opacity: 0.2;
-	stroke: #667C9C;
+  /*fill: 'none';*/
+  fill: #7cb5ec;
+  opacity: 0.2;
+  stroke: #667C9C;
 }
 
 .linechart-tooltip > line {
-	stroke: #808080;
-	fill: 'none';
+  stroke: #808080;
+  fill: 'none';
 }
 
 .linechart-tooltip > div {
-	height: 30px;
-	background-color: black;
+  height: 30px;
+  background-color: black;
 }
 
 .linechart-tooltip rect {
-	fill: #2d323d;
-	opacity: 0.9;
+  fill: #2d323d;
+  opacity: 0.9;
 }
 
 .linechart-tooltip text {
-	fill: #fff;
-	font-size: 11px;
-	shape-rendering: crispEdges;
-	font-family: 'Consolas', monospace;
+  fill: #fff;
+  font-size: 11px;
+  shape-rendering: crispEdges;
+  font-family: 'Consolas', monospace;
 }

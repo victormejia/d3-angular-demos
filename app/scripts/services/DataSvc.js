@@ -2,9 +2,7 @@
 
 angular.module('d3AngularDemosApp')
   .factory('DataSvc', ['$http', '$q', function ($http, $q) {
-    // Service logic
-    // ...
-
+    
     var getTopRepos = function () {
       return $http.get('/github-repos-2013.json')
         .then(function (res) {
@@ -34,10 +32,18 @@ angular.module('d3AngularDemosApp')
       return deferred.promise;
     };
 
+    var getRandomPieData = function () {
+      var data = d3.range(7).map(function () {
+        return Math.round(Math.random() * 100);
+      });
+      return data;
+    }
+
     // Public API here
     return {
       getTopRepos: getTopRepos,
-      getStockData: getStockData
+      getStockData: getStockData,
+      getRandomPieData: getRandomPieData
     };
 
   }]);
