@@ -60,7 +60,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Bar Chart</a></li>
-            <li><a href="#">Line Chart</a></li>
+            <li><a href="#/line">Line Chart</a></li>
             <li><a href="#">Donut Chart</a></li>
             <li><a href="#">About</a></li>
           </ul>
@@ -105,8 +105,10 @@
 		<!-- build:js({.tmp,app}) scripts/scripts.js -->
 		<script src="scripts/app.js"></script>
 		<script src="scripts/controllers/main.js"></script>
+		<script src="scripts/controllers/linechart.js"></script>
 		<script src="scripts/directives/barchart.js"></script>
-		<script src="scripts/services/github.js"></script>
+		<script src="scripts/directives/linechart.js"></script>
+		<script src="scripts/services/DataSvc.js"></script>
 		<!-- endbuild -->
 
 </body>

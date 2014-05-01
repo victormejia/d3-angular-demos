@@ -13,6 +13,10 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/line', {
+        templateUrl: 'views/linechart.html',
+        controller: 'LineChartCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
