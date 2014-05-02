@@ -6,20 +6,20 @@ angular.module('d3AngularDemosApp')
     var linker = function (scope, element, attrs) {
       // setup svg element
       var el = element[0],
-        margin = {top: 20, right: 20, bottom: 20, left: 20}, // margin used for axis    
+        margin = {top: 20, right: 20, bottom: 20, left: 20}, // margin used for axis
         elWidth = el.clientWidth,
         elHeight = el.clientHeight,
         width = elWidth - margin.right - margin.left,
         height = elHeight - margin.top - margin.bottom,
         fillColor = '#4B7BA3';
-        
+
       var svg = d3.select(el)
         .append('svg')
           .attr('width', width + margin.left + margin.right)
           .attr('height', height + margin.top + margin.bottom)
         .append('g')
           .attr('transform', 'translate(' + [width/2 + margin.right, height/2 + margin.top] + ')');
-      
+
       var radius = Math.min(width, height) / 2;
 
       // group of 10 colors
@@ -38,7 +38,7 @@ angular.module('d3AngularDemosApp')
         return function(t) {
           return arc(i(t));
         };
-      }                
+      }
 
       // resize chart when the width changes
       scope.$watch(function () {
@@ -66,6 +66,23 @@ angular.module('d3AngularDemosApp')
 
       function resize() {
         // update width
+        width = el.clientWidth - margin.right - margin.left;
+
+        // update svg
+        var svg = d3.select(el).select('svg')
+        svg.attr('width', width + margin.left + margin.right);
+
+        svg.select('g').attr('transform', 'translate(' + [width/2 + margin.right, height/2 + margin.top] + ')');
+
+        // take everything that is related to width
+        radius = Math.min(width, height) / 2;
+
+        arc = d3.svg.arc()
+        .outerRadius(radius)
+        .innerRadius(radius * 0.6);
+
+                  var path = svg.selectAll('path')///.data(pie(data));
+        path.transition().attrTween('d', arcTween);
       }
     };
 
