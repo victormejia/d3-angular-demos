@@ -4,42 +4,6 @@ angular.module('d3AngularDemosApp')
   .directive('barchart', function () {
 
     var linker = function (scope, element, attrs) {
-
-      function handleMouseover(d, i) {
-        mouseoutTimeout && clearTimeout(mouseoutTimeout);
-
-        var tooltip = svg.select('.custom-tooltip');
-
-        var x = xScale(d.lang);
-        var y = yScale(d.value) - 35;
-
-        // check boundaries
-        if (x + tooltipWidth > width) {
-          x = xScale(d.lang) - tooltipWidth + xScale.rangeBand();
-        }
-        var attr = { transform: 'translate(' + [x, y] + ')' };
-
-        if (tooltip.style('visibility') === 'visible') {
-          tooltip.transition().duration(300).attr(attr);
-        }
-        else {
-          tooltip.attr(attr);
-        }
-
-        tooltip.select('text')
-          .text(function () {
-            return 'Repos: ' + d.value;
-          });
-
-        tooltip.style('visibility', 'visible');
-      }
-
-      function handleMouseout(d, i) {
-        mouseoutTimeout = setTimeout(function () {
-          svg.select('.custom-tooltip').style('visibility', 'hidden')
-        }, 1000);
-      }
-
       // setup svg element
       var el = element[0],
         margin = {top: 20, right: 10, bottom: 80, left: 45}, // margin used for axis
@@ -78,80 +42,80 @@ angular.module('d3AngularDemosApp')
         transform: 'translate(' + [0, height] + ')'
       });
 
-      var yAxisGroup = svg.append('g').attr({
-        class: 'axis'
-      });
+      var yAxisGroup = svg.append('g').attr('class', 'axis');
 
       // let's create the tooltip
-      var tooltip = svg.append('g').attr({class: 'custom-tooltip'}),
+      var tooltip = svg.append('g').attr('class', 'custom-tooltip'),
         tooltipWidth = 100,
         tooltipHeight = 30;
       tooltip.append('rect').attr({ height: tooltipHeight, width: tooltipWidth });
       tooltip.append('text').attr({ x: 10, y: 20 });
       var mouseoutTimeout;
 
-      // resize chart when the width changes
-      scope.$watch(function () {
-        return el.clientWidth;
-      }, function () {
-        resize();
-      });
+      scope.render = function (data) {
+        var x = scope.x, y = scope.y;
+        var maxVal = d3.max(data, function (d) { return d[y]; });
+        var padding = Math.round(maxVal * 0.05);
 
-      scope.$watch('data', function (newData, oldData) {
-        if (newData !== undefined) {
-          var data = angular.copy(newData);
+        yScale.domain([0, maxVal + padding]);
+        xScale.domain(data.map(function (d) { return d[x]; }));
 
-          var maxVal = d3.max(data, function (d) { return d.value; });
-          var padding = Math.round(maxVal * 0.05);
-          yScale.domain([0, maxVal + padding]);
-          xScale.domain(data.map(function (d) { return d.lang; }));
+        // create axis
+        xAxis.scale(xScale);
+        yAxis.scale(yScale);
 
-          // create axis
-          xAxis.scale(xScale);
-          yAxis.scale(yScale);
+        xAxisGroup.call(xAxis)
+          .selectAll('text')
+            .style('text-anchor', 'end')
+            .attr('dx', '-10px').attr('dy', '-11px').attr('transform', 'rotate(-90)');
 
-          xAxisGroup.call(xAxis)
-            .selectAll('text')
-              .style('text-anchor', 'end')
-              .attr('dx', '-10px').attr('dy', '-11px').attr({ transform: 'rotate(-90)' });
+        yAxisGroup.call(yAxis);
 
-          yAxisGroup.call(yAxis);
+        //create visualization
+        var rect = svg.selectAll('rect.datum').data(data);
 
-          //create visualization
-          var r = svg.selectAll('rect.datum')
-            .data(data);
-
-          // transition new data
-          r.enter()
-            .insert('rect', ':first-child')
+        // transition new data
+        // let's use 'insert' instead of 'append' so that the tooltip
+        // is added in front of the bars
+        rect.enter()
+          .insert('rect', ':first-child')
             .attr({
               x: function (d, i) {
-                return xScale(d.lang)
+                return xScale(d[x])
               },
               y: height,
               height: 0,
               width: xScale.rangeBand(),
               fill: fillColor,
               class: 'datum'
-            }).on('mouseover', handleMouseover).on('mouseout', handleMouseout);
+            })
+            .on('mouseover', handleMouseover)
+            .on('mouseout', handleMouseout);
 
-          r.transition()
-            .duration(1200)
-            .attr({
-              y: function (d, i) {
-                return yScale(d.value)
-              },
-              height: function (d) {
-                return height - yScale(d.value)
-              }
-            });
+        rect.transition()
+          .duration(1200)
+          .attr({
+            y: function (d, i) {
+              return yScale(d[y])
+            },
+            height: function (d) {
+              return height - yScale(d[y])
+            }
+          });
 
-          // remove any data not needed
-          r.exit().remove();
-        }
-      }, true);
+        // remove any data not needed
+        rect.exit().remove();
+      };
 
-      function resize() {
+      // browser onresize event
+      // see: http://www.ng-newsletter.com/posts/d3-on-angular.html
+      window.onresize = function() {
+        scope.$apply(); // fire a digest cycle
+      };
+
+      scope.resize = function () {
+        var x = scope.x;
+
         // update width
         width = el.clientWidth - margin.right - margin.left;
 
@@ -167,27 +131,76 @@ angular.module('d3AngularDemosApp')
             .style('text-anchor', 'end')
             .attr('dx', '-10px')
             .attr('dy', '-11px')
-            .attr({
-              transform: 'rotate(-90)'
-            });
+            .attr('transform', 'rotate(-90)');
 
         // update the bars
         svg.selectAll('rect.datum')
           .attr({
             x: function (d, i) {
-              return xScale(d.lang)
+              return xScale(d[x])
             },
             width: xScale.rangeBand()
           })
+      };
+
+      // resize chart when the width changes
+      scope.$watch(function () {
+        return el.clientWidth;
+      }, function () {
+        scope.resize();
+      });
+
+      scope.$watch('data', function (newData, oldData) {
+        var data = angular.copy(newData); // let's make a copy
+        scope.render(data);
+      }, true);
+
+      // some helper functions
+      function handleMouseover(d, i) {
+        mouseoutTimeout && clearTimeout(mouseoutTimeout);
+
+        var tooltip = svg.select('.custom-tooltip');
+
+        var x = xScale(d.lang);
+        var y = yScale(d.value) - 35;
+
+        // check boundaries
+        if (x + tooltipWidth > width) {
+          x = xScale(d.lang) - tooltipWidth + xScale.rangeBand();
+        }
+        var attr = { transform: 'translate(' + [x, y] + ')' };
+
+        if (tooltip.style('visibility') === 'visible') {
+          tooltip.transition().duration(300).attr(attr);
+        }
+        else {
+          tooltip.attr(attr);
+        }
+
+        tooltip.select('text')
+          .text(function () {
+            return 'Repos: ' + d.value;
+          });
+
+        tooltip.style('visibility', 'visible');
       }
+
+      function handleMouseout(d, i) {
+        mouseoutTimeout = setTimeout(function () {
+          svg.select('.custom-tooltip').style('visibility', 'hidden')
+        }, 1000);
+      }
+
     };
 
     return {
       template: '<div></div>',
-      restrict: 'E',
+      restrict: 'EA',
       replace: true,
       scope: {
-        data: '='
+        data: '=', // bi-directional data binding
+        x: '@', // string
+        y: '@'
       },
       link: linker
     };

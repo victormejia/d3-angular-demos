@@ -2,12 +2,12 @@
 
 angular.module('d3AngularDemosApp')
   .directive('linechart', function () {
-  
+
   var linker = function (scope, element, attrs) {
 
     // setup svg element
     var el = element[0],
-      margin = {top: 20, right: 10, bottom: 80, left: 45}, // margin used for axis  
+      margin = {top: 20, right: 10, bottom: 80, left: 45}, // margin used for axis
       elWidth = el.clientWidth,
       elHeight = el.clientHeight,
       width = elWidth - margin.right - margin.left,
@@ -77,7 +77,7 @@ angular.module('d3AngularDemosApp')
     tooltip.append('circle').attr({ r: 10, class: 'outer-circle', 'pointer-events': 'none' });
     tooltip.append('rect').attr({ width: tooltipWidth, height: tooltipHeight, 'pointer-events': 'none' });
 
-    var text = tooltip.append('text').attr('pointer-events', 'none');     
+    var text = tooltip.append('text').attr('pointer-events', 'none');
 
     mouseTarget.on('mousemove', showTooltip);
     svg.on('mouseleave', function () {
@@ -104,7 +104,7 @@ angular.module('d3AngularDemosApp')
       line.x(function(d) { return x(d.date); });
       var path = svg.selectAll('path.line').attr('d', line);
 
-      if (path.node() !== null) { 
+      if (path.node() !== null) {
         var totalLength = path.node().getTotalLength();
         path.attr("stroke-dasharray", totalLength + " " + totalLength).attr("stroke-dashoffset", 0);
       }
@@ -164,7 +164,7 @@ angular.module('d3AngularDemosApp')
         };
       }
 
-      // check top boundary 
+      // check top boundary
       if ((pos.y - tooltipHeight) < 0 ) {
         return {
           x: pos.x - Math.round(tooltipWidth / 2),
@@ -195,8 +195,6 @@ angular.module('d3AngularDemosApp')
     });
 
     scope.$watch('data', function (newData, oldData) {
-      if (newData !== undefined) {
-
         if (newData.length == 0) {
           svg.selectAll('path').remove();
           return;
@@ -206,7 +204,7 @@ angular.module('d3AngularDemosApp')
         // scales
         x.domain([data[0].date, data[data.length - 1].date]);
         y.domain(d3.extent(data, function(d) { return d.close; }));
-        
+
         // axis
         xAxis.scale(x);
         yAxis.scale(y);
@@ -229,9 +227,8 @@ angular.module('d3AngularDemosApp')
             .transition()
             .duration(700)
             .ease("linear")
-            .attr("stroke-dashoffset", 0);  
-      }
-    }, true);           
+            .attr("stroke-dashoffset", 0);
+    }, true);
   };
 
     return {

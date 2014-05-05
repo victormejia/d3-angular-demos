@@ -48,8 +48,6 @@ angular.module('d3AngularDemosApp')
       });
 
       scope.$watch('data', function (newData, oldData) {
-        if (newData !== undefined) {
-
           var data = angular.copy(newData);
 
           var path = svg.selectAll('path').data(pie(data));
@@ -61,7 +59,6 @@ angular.module('d3AngularDemosApp')
 
           // animate the data
           path.transition().duration(1000).attrTween('d', arcTween);
-        }
       }, true);
 
       function resize() {
