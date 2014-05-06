@@ -1,4 +1,4 @@
 - [ ] link to slides
 - [ ] prism.js plugin
 - [ ] show source for examples
-- [ ] 'mean' demo in directive
+- [x] 'mean' demo in directive

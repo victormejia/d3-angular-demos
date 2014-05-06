@@ -247,7 +247,6 @@ h2 {
   shape-rendering: crispEdges;
 }
 
-
 .chart {
   height: 400px;
   width: 100%;
@@ -286,19 +285,8 @@ h2 {
 
 
 /*
-* Useful chart styles for axis
+* Barchart tooltips
 */
-.axis path, .axis line {
-  fill: none;
-  stroke: #c0c0c0;
-  shape-rendering: crispEdges;
-}
-
-.axis text {
-  fill: #777;
-  font-size: 12px;
-  shape-rendering: crispEdges;
-}
 
 .custom-tooltip {
   visibility: hidden;
