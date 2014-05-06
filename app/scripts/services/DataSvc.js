@@ -2,8 +2,10 @@
 
 angular.module('d3AngularDemosApp')
   .factory('DataSvc', ['$http', '$q', function ($http, $q) {
-    
-    var getTopRepos = function () {
+
+    var DataSvc = {};
+
+    DataSvc.getTopRepos = function () {
       return $http.get('/github-repos-2013.json')
         .then(function (res) {
           // return d3.shuffle(res.data);
@@ -11,7 +13,7 @@ angular.module('d3AngularDemosApp')
         });
     };
 
-    var getStockData = function () {
+    DataSvc.getStockData = function () {
       var deferred = $q.defer();
       var parseDate = d3.time.format("%d-%b-%y").parse;
 
@@ -32,18 +34,13 @@ angular.module('d3AngularDemosApp')
       return deferred.promise;
     };
 
-    var getRandomPieData = function () {
+    DataSvc.getRandomPieData = function () {
       var data = d3.range(7).map(function () {
         return Math.round(Math.random() * 100);
       });
       return data;
-    }
-
-    // Public API here
-    return {
-      getTopRepos: getTopRepos,
-      getStockData: getStockData,
-      getRandomPieData: getRandomPieData
     };
+
+    return DataSvc;
 
   }]);

@@ -179,7 +179,7 @@ angular.module('d3AngularDemosApp')
 
         tooltip.select('text')
           .text(function () {
-            return 'Repos: ' + d.value;
+            return 'Repos: ' + d3.format(',')(d.value);
           });
 
         tooltip.style('visibility', 'visible');
