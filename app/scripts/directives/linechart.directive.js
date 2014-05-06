@@ -115,44 +115,46 @@ angular.module('d3AngularDemosApp')
         x0 = x.invert(d3.mouse(this)[0]),
         i = bisectDate(scope.data, x0, 1);
         var d0 = scope.data[i - 1],
-        d1 = scope.data[i],
-        d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+        d1 = scope.data[i];
 
-      // the values
-      var xPos = coords[0];
-      var yPos = y(d.close);
+      if (d0 && d1) {
+        var d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+        // the values
+        var xPos = coords[0];
+        var yPos = y(d.close);
 
-      var tooltip = svg.select('.linechart-tooltip');
+        var tooltip = svg.select('.linechart-tooltip');
 
-      tooltip.select("line").attr({ x1: xPos, y1: height, x2: xPos, y2: 0 });
+        tooltip.select("line").attr({ x1: xPos, y1: height, x2: xPos, y2: 0 });
 
-      tooltip.select('.inner-circle').attr('cx', xPos).attr('cy', yPos)
+        tooltip.select('.inner-circle').attr('cx', xPos).attr('cy', yPos)
 
-      tooltip.select('.outer-circle').attr('cx', xPos).attr('cy', yPos)
+        tooltip.select('.outer-circle').attr('cx', xPos).attr('cy', yPos)
 
-      var tooltipPos = getTooltipPos({x: xPos, y: yPos});
+        var tooltipPos = getTooltipPos({x: xPos, y: yPos});
 
-      tooltip.select('rect').attr({ x: tooltipPos.x, y: tooltipPos.y});
+        tooltip.select('rect').attr({ x: tooltipPos.x, y: tooltipPos.y});
 
-      var text = tooltip.select('text');
-      text.selectAll('tspan').remove();
+        var text = tooltip.select('text');
+        text.selectAll('tspan').remove();
 
-      text.attr('x', tooltipPos.x + 10).attr('y', tooltipPos.y + 15);
+        text.attr('x', tooltipPos.x + 10).attr('y', tooltipPos.y + 15);
 
-      text.append('tspan')
-        .attr('text-anchor', 'start')
-        .text(function () {
-          return d3.time.format('%a, %b %d %Y')(d.date);
-        })
-      text.append('tspan')
-        .attr('dy', 16)
-        .attr('dx', -96)
-        .attr('text-anchor', 'start')
-        .text(function () {
-          return 'Price: ' + formatCurrency(d.close);
-        })
+        text.append('tspan')
+          .attr('text-anchor', 'start')
+          .text(function () {
+            return d3.time.format('%a, %b %d %Y')(d.date);
+          })
+        text.append('tspan')
+          .attr('dy', 16)
+          .attr('dx', -96)
+          .attr('text-anchor', 'start')
+          .text(function () {
+            return 'Price: ' + formatCurrency(d.close);
+          })
 
-      tooltip.style('visibility', 'visible');
+        tooltip.style('visibility', 'visible');
+      }
     }
 
     function getTooltipPos(pos) {

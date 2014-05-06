@@ -10,13 +10,13 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html'
-        // controller: 'MainCtrl'
+        templateUrl: 'views/main.html',
+        controller: 'MainCtrl'
       })
       .when('/line', {
         templateUrl: 'views/Line.html',
         controller: 'LineChartCtrl'
-      })      
+      })
       .when('/bar', {
         templateUrl: 'views/Bar.html',
         controller: 'BarChartCtrl'

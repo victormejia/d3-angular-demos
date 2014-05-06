@@ -366,10 +366,11 @@ h2 {
   max-width: 900px;
   margin: 10px auto;
 }
+
 #chart-mean-container {
   position: relative;
 
-  #chart-mean {
+  .chart-mean {
     height: 200px;
     background-color: #2B2B2E;
     border-radius: 3px;

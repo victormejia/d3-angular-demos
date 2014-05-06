@@ -2,8 +2,9 @@
   <h1 class="page-header">Welcome to this playground!</h1>
 
   <div id="chart-mean-container">
-    <button class="btn btn-primary">Replay</button>
-    <div id="chart-mean"></div>
+    <button class="btn btn-primary" ng-click="replay()">Replay</button>
+    <!-- <div id="chart-mean"></div> -->
+    <mean-vis class="chart-mean" replay-count="count"></mean-vis>
   </div>
 
   <p>Hey there, "D3 Angular Demos" is a playground I built as I was preparing for a talk I gave at the <a href="http://www.meetup.com/AngularJS-OC/">AngularJS OC Meetup</a> about <a href="http://d3js.org/">D3</a> and <a href="https://angularjs.org/">Angular</a>. It includes directives for some basic visualizations. I've tried to make them all responsive and mobile friendly. Check out the examples and resize your browser to check it out.</p>
@@ -30,5 +31,5 @@
 
   and that should open a browser for you with live reloading ready. Happy coding!
 
-  <script src="/scripts/demo/mean.js"></script>
+  <!-- <script src="/scripts/demo/mean.js"></script> -->
 </div>

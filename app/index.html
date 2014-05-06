@@ -25,14 +25,6 @@
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-<!--  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">D3 Angular Demos</a>
-    </div>
-    </div>
-  </div>
- -->
   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -46,8 +38,8 @@
       </div>
         <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li class="active"><span class="entypo">&#128640</span><a href="#">Home</a></li>
-          <li><a href="#"><span class="entypo">&#128202</span>Bar Chart</a></li>
+          <li><span class="entypo">&#128640</span><a href="#">Home</a></li>
+          <li><a href="#/bar"><span class="entypo">&#128202</span>Bar Chart</a></li>
           <li><a href="#/line"><span class="entypo">&#128200;</span>Line Chart</a></li>
           <li><a href="#/donut"><span class="entypo">&#9716;</span>Donut Chart</a></li>
         </ul>
@@ -58,12 +50,7 @@
   <div class="container-fluid">
     <div class="row-fluid">
       <div class="col-sm-3 col-md-2 sidebar">
-        <ul class="nav nav-sidebar">
-          <li class="active"><a href="#"><span class="entypo">&#128640</span>Home</a></li>
-          <li><a href="#/bar"><span class="entypo">&#128202;</span>Bar Chart</a></li>
-          <li><a href="#/line"><span class="entypo">&#128200;</span>Line Chart</a></li>
-          <li><a href="#/donut"><span class="entypo">&#9716;</span>Donut Chart</a></li>
-        </ul>
+        <ng-include src="'views/Nav.html'"></ng-include>
       </div>
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <!-- Add your site or application content here -->
@@ -101,16 +88,25 @@
   <!-- endbower -->
   <!-- endbuild -->
 
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/BarChartCtrl.js"></script>
-    <script src="scripts/controllers/LineChartCtrl.js"></script>
-    <script src="scripts/controllers/DonutChartCtrl.js"></script>
-    <script src="scripts/directives/barchart.directive.js"></script>
-    <script src="scripts/directives/linechart.directive.js"></script>
-    <script src="scripts/directives/donutchart.directive.js"></script>
-    <script src="scripts/services/DataSvc.js"></script>
-    <!-- endbuild -->
+  <!-- build:js({.tmp,app}) scripts/scripts.js -->
+  <script src="scripts/app.js"></script>
+  <script src="scripts/controllers/NavCtrl.js"></script>
+  <script src="scripts/controllers/BarChartCtrl.js"></script>
+  <script src="scripts/controllers/LineChartCtrl.js"></script>
+  <script src="scripts/controllers/DonutChartCtrl.js"></script>
+  <script src="scripts/controllers/MainCtrl.js"></script>
+  <script src="scripts/directives/barchart.directive.js"></script>
+  <script src="scripts/directives/linechart.directive.js"></script>
+  <script src="scripts/directives/donutchart.directive.js"></script>
+  <script src="scripts/directives/mean.directive.js"></script>
+  <script src="scripts/services/DataSvc.js"></script>
+  <!-- endbuild -->
+
+  <script>
+    $('.navbar-nav').on('click', function () {
+      $('.navbar-toggle').click();
+    });
+  </script>
 
 </body>
 </html>

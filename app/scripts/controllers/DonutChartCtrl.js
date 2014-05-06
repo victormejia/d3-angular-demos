@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('d3AngularDemosApp')
-  .controller('DonutChartCtrl', ['$scope', '$window', 'DataSvc', function ($scope, $window, DataSvc) {
+  .controller('DonutChartCtrl', ['$scope', '$rootScope', '$window', 'DataSvc', function ($scope, $rootScope, $window, DataSvc) {
 
     // wait for window resizes
     angular.element($window).on('resize', $scope.$apply.bind($scope));
@@ -12,4 +12,5 @@ angular.module('d3AngularDemosApp')
 
     $scope.refresh();
 
+    $rootScope.$broadcast('tabChange', 'donut');
   }]);
