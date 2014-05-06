@@ -3,8 +3,6 @@
 
 If these directives are in any way useful to you, go ahead and use them to your heart's content. As I come up with new demos I will be adding them to the project. Feel free to clone or fork the repo. If you find any bugs, please open an issue. Oh and, pull requests are welcome :).
 
-View the [slides]("http://victormejia.github.io/d3-angularoc/#/").
-
 ### Hacking on this:
 I built this app using ["Yeoman"]("http://yeoman.io"). Follow the instructions on the homepage to have Yeoman installed, which will install ["Grunt"]("http://gruntjs.com") ["Bower"]("http://bower.io") automatically. Note that you will need Node.js, Git, and Ruby and Compass (for Sass watching).
 
