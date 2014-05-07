@@ -5,3 +5,4 @@ dist
 app/bower_components
 *.TMP
 .DS_Store
+.grunt
