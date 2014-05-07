@@ -307,7 +307,8 @@ module.exports = function (grunt) {
             '*.html',
             'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
-            'fonts/*'
+            'fonts/*',
+            'data/*'
           ]
         }, {
           expand: true,
@@ -371,7 +372,16 @@ module.exports = function (grunt) {
         configFile: 'karma.conf.js',
         singleRun: true
       }
+    },
+
+    'gh-pages': {
+      options: {
+        base: 'dist',
+        message: 'Auto-generated commit'
+      },
+      src: ['**/*']
     }
+
   });
 
 

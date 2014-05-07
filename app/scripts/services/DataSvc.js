@@ -6,7 +6,7 @@ angular.module('d3AngularDemosApp')
     var DataSvc = {};
 
     DataSvc.getTopRepos = function () {
-      return $http.get('/github-repos-2013.json')
+      return $http.get('data/github-repos-2013.json')
         .then(function (res) {
           // return d3.shuffle(res.data);
           return res.data;
@@ -18,7 +18,7 @@ angular.module('d3AngularDemosApp')
       var parseDate = d3.time.format("%d-%b-%y").parse;
 
       // let's load the csv data using d3
-      d3.csv('/data/aapl.csv', function (error, data) {
+      d3.csv('data/aapl.csv', function (error, data) {
         data.forEach(function(d) {
           d.date = parseDate(d.date);
           d.close = +d.close;
