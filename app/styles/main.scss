@@ -145,9 +145,6 @@ h2 {
     text-transform: uppercase;
     font-size:14px;
     padding: 15px 28px;
-    .entypo {
-      top: 6px;
-    }
   }
   .navbar-nav > li {
     &:hover {
@@ -159,7 +156,6 @@ h2 {
     }
     > a {
       color: #ECECEC;
-      padding-left: 38px;
     }
   }
 }
@@ -187,12 +183,6 @@ h2 {
 
 .main {
   padding: 20px;
-}
-@media (min-width: 768px) {
-  .main {
-    // padding-right: 40px;
-    // padding-left: 40px;
-  }
 }
 
 .main .page-header {
@@ -249,7 +239,9 @@ h2 {
   position: relative;
 
   .btn {
-    margin-top: -7px;
+    margin-top: -5px;
+    margin-right: -14px;
+    font-size: 12px;
   }
 }
 
@@ -360,5 +352,9 @@ h2 {
   #chart-mean-container button {
     right: 5px;
     top: 5px;
+  }
+  .panel-heading .btn {
+    font-size: 14px;
+    margin-top: -7px;
   }
 }

@@ -16,8 +16,8 @@ angular.module('d3AngularDemosApp')
 
     var svg = d3.select(el)
       .append('svg')
-        .attr('width', width + margin.left + margin.right)
-        .attr('height', height + margin.top + margin.bottom)
+        .attr('width', elWidth)
+        .attr('height', elHeight)
       .append('g')
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
@@ -38,10 +38,9 @@ angular.module('d3AngularDemosApp')
     var yAxis = d3.svg.axis()
       .orient("left");
 
-    var xAxisGroup = svg.append('g').attr({
-      class : 'axis',
-      transform: 'translate(' + [0, height] + ')'
-    });
+    var xAxisGroup = svg.append('g')
+      .attr('class', 'axis')
+      .attr('transform', 'translate(' + [0, height] + ')');
 
     var yAxisGroup = svg.append("g")
       .attr("class", "axis");
@@ -58,24 +57,21 @@ angular.module('d3AngularDemosApp')
       .x(function(d) { return x(d.date); })
       .y(function(d) { return y(d.close); });
 
-
     var mouseTarget = svg.append("rect")
-      .attr({
-        class: 'mousetarget',
-        width: width,
-        height: height,
-        fill: 'none',
-        'pointer-events': 'all'
-      });
+      .attr('class', 'mousetarget')
+      .attr('width', width)
+      .attr('height', height)
+      .attr('fill', 'none')
+      .attr('pointer-events', 'all');
 
     // tooltip group
     var tooltip = svg.append('g').attr('class', 'linechart-tooltip').style('visibility', 'hidden'),
       tooltipWidth = 130,
       tooltipHeight = 40;
     tooltip.append('line');
-    tooltip.append('circle').attr({ r: 3, class: 'inner-circle', 'pointer-events': 'none' });
-    tooltip.append('circle').attr({ r: 10, class: 'outer-circle', 'pointer-events': 'none' });
-    tooltip.append('rect').attr({ width: tooltipWidth, height: tooltipHeight, 'pointer-events': 'none' });
+    tooltip.append('circle').attr('r', 3).attr('class', 'inner-circle').attr('pointer-events', 'none');
+    tooltip.append('circle').attr('r', 10).attr('class', 'outer-circle').attr('pointer-events', 'none');
+    tooltip.append('rect').attr('width', tooltipWidth).attr('height', tooltipHeight).attr('pointer-events', 'none');
 
     var text = tooltip.append('text').attr('pointer-events', 'none');
 
@@ -125,33 +121,27 @@ angular.module('d3AngularDemosApp')
 
         var tooltip = svg.select('.linechart-tooltip');
 
-        tooltip.select("line").attr({ x1: xPos, y1: height, x2: xPos, y2: 0 });
-
+        tooltip.select("line").attr('x1', xPos).attr('y1', height).attr('x2', xPos).attr('y2', 0);
         tooltip.select('.inner-circle').attr('cx', xPos).attr('cy', yPos)
-
         tooltip.select('.outer-circle').attr('cx', xPos).attr('cy', yPos)
 
+        // update the text
         var tooltipPos = getTooltipPos({x: xPos, y: yPos});
-
         tooltip.select('rect').attr({ x: tooltipPos.x, y: tooltipPos.y});
 
         var text = tooltip.select('text');
         text.selectAll('tspan').remove();
-
         text.attr('x', tooltipPos.x + 10).attr('y', tooltipPos.y + 15);
 
         text.append('tspan')
           .attr('text-anchor', 'start')
-          .text(function () {
-            return d3.time.format('%a, %b %d %Y')(d.date);
-          })
+          .text(d3.time.format('%a, %b %d %Y')(d.date));
+
         text.append('tspan')
           .attr('dy', 16)
           .attr('dx', -96)
           .attr('text-anchor', 'start')
-          .text(function () {
-            return 'Price: ' + formatCurrency(d.close);
-          })
+          .text('Price: ' + formatCurrency(d.close));
 
         tooltip.style('visibility', 'visible');
       }
@@ -185,9 +175,14 @@ angular.module('d3AngularDemosApp')
       return {
         x: pos.x - Math.round(tooltipWidth / 2),
         y: pos.y - tooltipHeight - 20
-      };
+      }
     }
 
+
+      // browser onresize event
+      window.onresize = function() {
+        scope.$apply(); // fire a digest cycle
+      };
 
     // resize chart when the width changes
     scope.$watch(function () {
@@ -235,7 +230,7 @@ angular.module('d3AngularDemosApp')
 
     return {
       template: '<div></div>',
-      restrict: 'E',
+      restrict: 'EA',
       replace: true,
       scope: {
         data: '='

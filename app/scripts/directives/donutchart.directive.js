@@ -15,8 +15,8 @@ angular.module('d3AngularDemosApp')
 
       var svg = d3.select(el)
         .append('svg')
-          .attr('width', width + margin.left + margin.right)
-          .attr('height', height + margin.top + margin.bottom)
+          .attr('width', elWidth)
+          .attr('height', elHeight)
         .append('g')
           .attr('transform', 'translate(' + [width/2 + margin.right, height/2 + margin.top] + ')');
 
@@ -39,6 +39,11 @@ angular.module('d3AngularDemosApp')
           return arc(i(t));
         };
       }
+
+      // browser onresize event
+      window.onresize = function() {
+        scope.$apply(); // fire a digest cycle
+      };
 
       // resize chart when the width changes
       scope.$watch(function () {
@@ -78,14 +83,14 @@ angular.module('d3AngularDemosApp')
         .outerRadius(radius)
         .innerRadius(radius * 0.6);
 
-                  var path = svg.selectAll('path')///.data(pie(data));
-        path.transition().attrTween('d', arcTween);
+        var path = svg.selectAll('path')
+          .transition().attrTween('d', arcTween);
       }
     };
 
     return {
       template: '<div></div>',
-      restrict: 'E',
+      restrict: 'EA',
       replace: true,
       scope: {
         data: '='

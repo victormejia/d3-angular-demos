@@ -15,7 +15,6 @@ angular.module('d3AngularDemosApp')
       var x = d3.scale.linear().domain([0, 100]).range([0, width]);
 
       // browser onresize event
-      // see: http://www.ng-newsletter.com/posts/d3-on-angular.html
       window.onresize = function() {
         scope.$apply(); // fire a digest cycle
       };
@@ -48,15 +47,8 @@ angular.module('d3AngularDemosApp')
 
         // middle axis
         var baseLine = svg.append('line')
-          .attr({
-            x1: 0,
-            y1: middleY,
-            x2: x(100),
-            y2: middleY,
-            fill: 'none',
-            stroke: '#707070',
-            'stroke-width': '2'
-          });
+          .attr('x1', 0).attr('y1', middleY).attr('x2', x(100)).attr('y2', middleY)
+          .attr('fill', 'none').attr('stroke', '#707070').attr('stroke-width', 2);
 
         // title
         var title = svg.append('text')
@@ -80,9 +72,7 @@ angular.module('d3AngularDemosApp')
           .data(data)
           .enter()
           .append('circle')
-            .attr('cx', function (d) {
-              return x(d);
-            })
+            .attr('cx', function (d) { return x(d); })
             .attr('cy', 0)
             .attr('r', 4)
             .attr('fill', 'none');
