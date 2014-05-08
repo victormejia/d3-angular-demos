@@ -6,8 +6,11 @@ If these directives are in any way useful to you, go ahead and use them to your 
 ### Hacking on this:
 I built this app using [Yeoman]("http://yeoman.io"). Follow the instructions on the homepage to have Yeoman installed, which will install [Grunt]("http://gruntjs.com") [Bower]("http://bower.io") automatically. Note that you will need Node.js, Git, and Ruby and Compass (for Sass watching).
 
-Once you have those installed, in the directory simply run: 
+Once you have those installed, run the following:
 
+    $ mkdir d3-angular
+    $ cd d3-angular
+    $ git clone https://github.com/victormejia/d3-angular-demos.git .
     $ npm install
     $ bower install
     $ grunt serve
