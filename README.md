@@ -9,9 +9,8 @@ I built this app using [Yeoman]("http://yeoman.io"). Follow the instructions on 
 
 Once you have those installed, run the following:
 
-    $ mkdir d3-angular
-    $ cd d3-angular
-    $ git clone https://github.com/victormejia/d3-angular-demos.git .
+    $ git clone https://github.com/victormejia/d3-angular-demos.git
+    $ cd d3-angular-demos
     $ npm install
     $ bower install
     $ grunt serve
