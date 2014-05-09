@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('d3AngularDemosApp')
-  .controller('BarChartCtrl', ['$scope', 'DataSvc',
-    function ($scope, DataSvc) {
+  .controller('BarChartCtrl', ['$scope', '$rootScope', 'DataSvc',
+    function ($scope, $rootScope, DataSvc) {
 
       $scope.ui = {};
 
@@ -15,5 +15,7 @@ angular.module('d3AngularDemosApp')
       };
 
       $scope.refresh();
+
+      $rootScope.$broadcast('tabChange', 'bar');
     }
   ]);
